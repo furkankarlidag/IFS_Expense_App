@@ -1,0 +1,99 @@
+<app-navbar [name]="name"></app-navbar>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<section class="intro bg-light">
+  <div  class="container" >
+    <div class="header">
+      <h1>Expenses</h1>
+      <form [formGroup]="expensesForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-md-4 form-group">
+            <label for="periodSelect">Period</label>
+            <select id="periodSelect" class="form-select" formControlName="period">
+              <option *ngFor="let period of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="period">{{ period }}</option>
+            </select>
+          </div>
+          <div class="col-md-4 form-group">
+            <label for="yearSelect">Year</label>
+            <select id="yearSelect" class="form-select" formControlName="year">
+              <option *ngFor="let year of [2020,2021,2022,2023, 2024, 2025]" [value]="year">{{ year }}</option>
+            </select>
+          </div>
+          <div class="col-md-4 form-group d-flex align-items-end">
+            <button class="btn btn-success" type="submit">Show Expenses</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    
+    <div class="table-container p-3">
+      <div class="table-responsive" id="table-wrapper">
+        <table class="table table-dark table-striped table-bordered mb-0">
+          <thead>
+            <tr>
+              <th>Expense ID</th>
+              <th>Person ID</th>
+              <th>Customer ID</th>
+              <th>Customer Name</th>
+              <th>Expense Code</th>
+              <th>Expense Name</th>
+              <th>Expense Date</th>
+              <th>Description</th>
+              <th>Expense Type</th>
+              <th>Document No</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="expenses.length === 0">
+              <td colspan="12" class="text-center text-danger">No expenses found</td>
+            </tr>
+            <tr *ngFor="let expense of expenses">
+              <th scope="row">{{ expense.ExpenseId }}</th>
+              <td>{{ name }}</td>
+              <td>{{ expense.CustomerId }}</td>
+              <td>{{ searchCustomer(expense.CustomerId) }}</td>
+              <td>{{ expense.ExpenseCode }}</td>
+              <td>{{ searchExpenseCode(expense.ExpenseCode) }}</td>
+              <td>{{ expense.ExpenseDate }}</td>
+              <td>{{ expense.Description }}</td>
+              <td>{{ expense.ExpenseType }}</td>
+              <td>{{ expense.DocumentNo }}</td>
+              <td>{{ expense.Amount }}</td>
+              <td class="text-center" [ngClass]="{
+                'text-success': expense.Status === 'Approved',
+                'text-primary': expense.Status === 'New',
+                'text-danger': expense.Status !== 'Approved' && expense.Status !== 'New'
+              }">{{ expense.Status }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+  </div>
+</section>
+<script>
+  function sortTable(columnIndex) {
+      const table = document.getElementById('myTable');
+      const tbody = table.tBodies[0];
+      const rows = Array.from(tbody.rows);
+      const isNumeric = !isNaN(rows[0].cells[columnIndex].textContent.trim());
+  
+      rows.sort((rowA, rowB) => {
+          const cellA = rowA.cells[columnIndex].textContent.trim();
+          const cellB = rowB.cells[columnIndex].textContent.trim();
+  
+          if (isNumeric) {
+              return parseFloat(cellA) - parseFloat(cellB);
+          } else {
+              return cellA.localeCompare(cellB);
+          }
+      });
+  
+      rows.forEach(row => tbody.appendChild(row));
+  }
+  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

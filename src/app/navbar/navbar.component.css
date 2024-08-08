@@ -1,0 +1,87 @@
+.navbar {
+  background-color: #6f42c1;
+  /* Purple background */
+  display: flex;
+  justify-content: space-between;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  /* Vertical padding for navbar */
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-brand img {
+  height: 50px;
+  /* Adjust height of logo */
+  margin-right: 1rem;
+  /* Space between logo and text */
+}
+
+.navbar-brand span {
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  color: #000;
+  /* Black color for text */
+  font-size: 2rem;
+  /* Same size as the logo */
+  font-weight: bold;
+}
+
+.navbar-nav .nav-item {
+  font-family: "Rajdhani", sans-serif;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.nav-link {
+  font-weight: bold;
+  font-size: 1.2rem;
+  /* Bold and larger text for menu items */
+  color: #fff !important;
+}
+
+.dropdown-toggle {
+  border: 2px solid #d3bdf0;
+  /* Light purple border */
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  /* Increased padding inside the border */
+  color: black !important;
+  /* Black text */
+  font-size: 1.25rem;
+  /* Larger text size */
+}
+
+.dropdown-menu {
+  padding: 0.5rem 0;
+  /* Less padding around the items */
+}
+.dene{
+  background-color: #45414d;
+
+}
+.dropdown-item {
+  padding: 0.5rem 1.5rem;
+  /* Increased padding inside the items */
+  color: #000 !important;
+  /* Black text for items */
+  font-size: 1.25rem;
+  /* Larger text size */
+}
+
+.dropdown-menu ul {
+  width: fit-content;
+  /* Adjust width of the dropdown items */
+}
+html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
