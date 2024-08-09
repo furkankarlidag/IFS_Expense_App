@@ -2,7 +2,7 @@ import { Component, ElementRef, Renderer2, ViewChild, OnInit} from '@angular/cor
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule,DOCUMENT } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { expenseCodes } from '../models/expenseCodes';
 import { CookieService } from 'ngx-cookie-service';
@@ -52,7 +52,9 @@ export class AddExpenseComponent {
    
     this.getCustomers();
     this.getExpenseCodes();
-    this.getUsernameFromToken(this.cookieService.get('token'));
+    this.username = this.cookieService.get('user');
+    this.name = this.cookieService.get('user');
+    //this.getUsernameFromToken(this.cookieService.get('token'));
     
   }
 
@@ -89,13 +91,24 @@ export class AddExpenseComponent {
   }
   onSubmit(): void {
     if (this.AddExpenseForm.valid) {
-      
+      if(this.AddExpenseForm.get('description')?.value.length > 195){
+        alert('Description should not exceed 200 characters.');
+        return;
+      }
 
       const apiUrl = 'https://localhost:7067/api/AddExpense';
       const url = `${apiUrl}`;
 
+
+      const token = this.cookieService.get('token');
+      
+      
+      const headers = new HttpHeaders({
+          'Authorization': `Bearer ${token}`
+      });
+
       const body = {
-        personId: this.username,
+        personId: this.cookieService.get('user'),
         customerId: this.AddExpenseForm.value.customerId,
         expenseCode: this.AddExpenseForm.value.expenseCode,
         amount: this.AddExpenseForm.value.amount,
@@ -106,11 +119,12 @@ export class AddExpenseComponent {
       };
       
      
-      this.http.post(url, body).subscribe({
+      this.http.post(url, body,{headers}).subscribe({
         next: (res: any) => {
           console.log('Response:', res);
           alert('Expense added successfully.');
           //this.router.navigate(['/expenses']);
+          this.AddExpenseForm.reset();
         },
         error: (err) => {
           console.error('HTTP request failed:', err);
@@ -122,8 +136,15 @@ export class AddExpenseComponent {
   getExpenseCodes() {
     const apiUrl = 'https://localhost:7067/api/ExpenseCodes';
     const url = `${apiUrl}`;
+
+    const token = this.cookieService.get('token');
+      
+      
+      const headers = new HttpHeaders({
+          'Authorization': `Bearer ${token}`
+      });
   
-    this.http.get(url).subscribe({
+    this.http.get(url,{headers}).subscribe({
       next: (res: any) => {
         console.log("Raw response:", res);
         if (res && res.value) {
@@ -154,8 +175,15 @@ export class AddExpenseComponent {
   getCustomers() {
     const apiUrl = 'https://localhost:7067/api/Customers';
     const url = `${apiUrl}`;
+
+    const token = this.cookieService.get('token');
+      
+      
+      const headers = new HttpHeaders({
+          'Authorization': `Bearer ${token}`
+      });
   
-    this.http.get(url).subscribe({
+    this.http.get(url,{headers}).subscribe({
       next: (res: any) => {
         console.log("Raw response:", res);
         if (res && res.value) {

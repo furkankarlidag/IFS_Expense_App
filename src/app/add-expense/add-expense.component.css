@@ -6,12 +6,19 @@ body{
   justify-content: center;
 }
 .container {
+  position: relative;
   max-width: 600px;
   margin-top:  50px;
+  
+  
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.centered-container{
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .form-group {

@@ -1,14 +1,13 @@
-
 <app-navbar [name]="name"></app-navbar>
 <div class="centered-container">
-  <div class="container mt-5" style="background-color: rgba(255, 255, 255, 0.877);">
+  <div class="container mt-5" style="background-color: rgba(255, 255, 255, 0.836);">
     <h1>Add Expense</h1>
     <form [formGroup]="AddExpenseForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="customerId">Customer </label>
-            <select class="form-control" id="customerId" formControlName="customerId">
+            <label for="customerId" class="fw-bold">Customer <span style="color: red;">*</span></label>
+            <select class="form-control" id="customerId" formControlName="customerId" required>
               <option *ngFor="let customer of customers" [value]="customer.customerId">
                 {{ customer.customerId }} - {{ customer.name }}
               </option>
@@ -17,26 +16,26 @@
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="expenseCode">Expense Code</label> <select class="form-control" id="expenseCode" formControlName="expenseCode">
+            <label for="expenseCode" class="fw-bold">Expense Code <span style="color: red;">*</span></label>
+            <select class="form-control" id="expenseCode" formControlName="expenseCode" required>
               <option *ngFor="let code of expenseCodes" [value]="code.ExpenseCode">
                 {{ code.ExpenseCode }} - {{ code.Description }}
               </option>
             </select>
-  
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="date">Date</label>
-            <input type="date" class="form-control" id="date" formControlName="date">
+            <label for="date" class="fw-bold">Date <span style="color: red;">*</span></label>
+            <input type="date" class="form-control" id="date" formControlName="date" required>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="expenseType">Expense Type</label>
-            <select class="form-control" id="expenseType" formControlName="expenseType">
+            <label for="expenseType" class="fw-bold">Expense Type <span style="color: red;">*</span></label>
+            <select class="form-control" id="expenseType" formControlName="expenseType" required>
               <option value="VOUCHER">Voucher</option>
               <option value="INVOICE">Invoice</option>
             </select>
@@ -46,24 +45,31 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="documentNo">Document No</label>
+            <label for="documentNo" class="fw-bold">Document No</label>
             <input type="text" class="form-control" id="documentNo" formControlName="documentNo">
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="amount">Amount</label>
-            <input type="number" class="form-control" id="amount" formControlName="amount">
+            <label for="amount" class="fw-bold">Amount <span style="color: red;">*</span></label>
+            <input type="number" class="form-control" id="amount" formControlName="amount" min="0" required>
           </div>
         </div>
       </div>
       <div class="form-group">
-        <label for="description">Description</label>
-        <textarea class="form-control" style="height: 255px;" id="description" rows="3" formControlName="description"></textarea>
+        <label for="description" class="fw-bold">Description</label>
+        <textarea class="form-control" style="height: 225px;" id="description" rows="3"
+          formControlName="description"></textarea>
       </div>
-      <button type="submit" class="btn btn-success mt-3" [disabled]="!AddExpenseForm.valid">Add Expense</button>
+      <p class="text-danger"><span style="color: red;">*</span> Required fields</p>
+      <button type="submit" class="btn btn-success " [disabled]="!AddExpenseForm.valid">Add Expense</button>
     </form>
   </div>
-  
-
 </div>
+<style>
+  .centered-container {
+    overflow: auto;
+  }
+
+
+</style>

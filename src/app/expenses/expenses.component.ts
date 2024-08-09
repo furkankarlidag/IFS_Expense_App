@@ -12,6 +12,8 @@ import { Console } from 'console';
 import { concatMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AuthGuard } from '../services/auth.guard';
+import { HttpHeaders } from '@angular/common/http';
+
 
 
 
@@ -113,35 +115,49 @@ export class ExpensesComponent implements OnInit {
     
     
 
-  fetchExpenses(year: number, period: number) {
+    fetchExpenses(year: number, period: number) {
     
-    const apiUrl = 'https://localhost:7067/api/Expenses';
-    const url = `${apiUrl}?username=${encodeURIComponent(this.cookieService.get('user')!)}&year=${encodeURIComponent(year)}&period=${encodeURIComponent(period)}`;
-
-    this.http.get(url).subscribe({
-      next: (res: any) => {
-        if (res && res.value) {
-          console.log("Raw response:", res);
-          this.expenses = res.value;
-          console.log("Parsed expenses:", this.expenses);
-        } else {
-          console.warn('No data found in the response.');
-          this.expenses = [];
+      const apiUrl = 'https://localhost:7067/api/Expenses';
+      const url = `${apiUrl}?username=${encodeURIComponent(this.cookieService.get('user')!)}&year=${encodeURIComponent(year)}&period=${encodeURIComponent(period)}`;
+      
+      
+      const token = this.cookieService.get('token');
+      
+      
+      const headers = new HttpHeaders({
+          'Authorization': `Bearer ${token}`
+      });
+      
+      
+      this.http.get(url, { headers }).subscribe({
+        next: (res: any) => {
+          if (res && res.value) {
+            console.log("Raw response:", res);
+            this.expenses = res.value;
+            console.log("Parsed expenses:", this.expenses);
+          } else {
+            console.warn('No data found in the response.');
+            this.expenses = [];
+          }
+        },
+        error: (err) => {
+          console.error('HTTP request failed:', err);
+          alert('Failed to fetch expenses. Please try again.');
         }
-      },
-      error: (err) => {
-        console.error('HTTP request failed:', err);
-        alert('Failed to fetch expenses. Please try again.');
-      }
-    });
-    this.getUsernameFromToken(this.cookieService.get('token'));
+      });
   }
 
   getExpenseCodes() {
     const apiUrl = 'https://localhost:7067/api/ExpenseCodes';
     const url = `${apiUrl}`;
   
-    this.http.get(url).subscribe({
+    const token = this.cookieService.get('token');
+      
+      
+      const headers = new HttpHeaders({
+          'Authorization': `Bearer ${token}`
+      });
+    this.http.get(url,{headers}).subscribe({
       next: (res: any) => {
         console.log("Raw response:", res);
         if (res && res.value) {
@@ -173,7 +189,14 @@ export class ExpensesComponent implements OnInit {
     const apiUrl = 'https://localhost:7067/api/Customers';
     const url = `${apiUrl}`;
   
-    this.http.get(url).subscribe({
+    const token = this.cookieService.get('token');
+      
+      
+      const headers = new HttpHeaders({
+          'Authorization': `Bearer ${token}`
+      });
+
+    this.http.get(url,{headers}).subscribe({
       next: (res: any) => {
         console.log("Raw response:", res);
         if (res && res.value) {
