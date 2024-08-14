@@ -13,6 +13,8 @@ import { concatMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AuthGuard } from '../services/auth.guard';
 import { HttpHeaders } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 
 
@@ -67,8 +69,11 @@ export class ExpensesComponent implements OnInit {
   }
 
   ngOnInit() {
-      
-     //this.getUsernameFromToken(this.cookieService.get('token'));
+      // if(!this.cookieService.get('user') ){
+      //   alert('You are not authorized to access this page. Please login again.');
+      //   this.authGuard.logout();
+      // }
+     
       
       const currentYear = new Date().getFullYear();
       const currentMonth = (new Date().getMonth() + 1);
@@ -85,32 +90,11 @@ export class ExpensesComponent implements OnInit {
       
     }
     
-    getUsernameFromToken(token: string) {
-      let status : boolean ;
-      const apiUrl = 'https://localhost:7067/api/Account/ConfirmToken';
-      const url = `${apiUrl}?token=${encodeURIComponent(token)}`;
-      console.log('URL:', url);
-    
-      this.http.get(url).subscribe({
-        next: (res: any) => {
-          console.log('Raw response:', res);
-            status = res.status;
-            if(status == true){
-            this.name = res.username;
-            this.username = res.username;
-            }
-            else{
-              alert('You are not authorized to access this page. Please login again.');
-              this.authGuard.logout();
-              this.router.navigate(['/login']);
-            }
-          
-        },
-        error: (err) => {
-          console.error('HTTP request failed:', err);
-          alert('Failed to fetch username. Please try again.');
-        }
-      });
+    checkLogin(): boolean {
+
+      
+
+      return false;
     }
     
     

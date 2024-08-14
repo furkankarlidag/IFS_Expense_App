@@ -4,9 +4,9 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { get } from 'http';
 import { Router } from '@angular/router';
-
 import { userModel } from '../models/userModel';
 import { CookieService } from 'ngx-cookie-service';
+import { JwtService } from '../services/jwt.service';
 
 
 
@@ -15,25 +15,24 @@ import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [NavbarStartComponent,FormsModule],
+  imports: [NavbarStartComponent, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  user = new userModel("","")
+  user = new userModel("", "")
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private cookieService: CookieService
-    
-    
-  ) { 
-    navbar : NavbarStartComponent
+    private cookieService: CookieService,
+    private jwtService: JwtService
+  ) {
+    navbar: NavbarStartComponent
   }
   ngOnInit() {
-    if(this.cookieService.get('user')){
-      this.router.navigate(['/expenses'] );
+    if (this.cookieService.get('user')) {
+      this.router.navigate(['/expenses']);
     }
   }
   onSubmit(form: NgForm) {
@@ -45,7 +44,7 @@ export class LoginComponent {
     console.log('Your form data:', form.value);
     console.log('Your cookie data:', this.cookieService.get('user'));
     this.loginUser(form.value.password, form.value.username);
-    
+
   }
   loginUser(password: string, username: string) {
     const apiUrl = 'https://localhost:7067/api/Account/Login';
@@ -60,18 +59,18 @@ export class LoginComponent {
           this.user.username = username;
           const now = new Date();
           console.log('now:', now);
-          const expiry = new Date(now.getTime() + 1 * 60 * 60 * 1000); 
-          
+          const expiry = new Date(now.getTime() + 1 * 60 * 60 * 1000);
+          console.log('expiry status:' , this.jwtService.isTokenExpired(res.token));
           this.cookieService.set('user', this.user.username, expiry, '/', undefined, true);
-          this.cookieService.set('expiry', expiry.toUTCString(), expiry, '/', undefined, true);
           this.cookieService.set('token', res.token, expiry, '/', undefined, true);
 
-          this.router.navigate(['/expenses'] );
+          this.router.navigate(['/expenses']);
         }
       },
       error: (err) => {
-        console.error('HTTP request failed:', err);
-        alert('Login failed. Please try again.');
+        console.error('HTTP request failed:', err.error);
+        const status = err.error;
+        alert(status.error);
       }
     });
   }

@@ -22,6 +22,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthGuard } from './services/auth.guard';
 
+
 export const appConfig: ApplicationConfig = {
   providers: [provideHttpClient(),provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(),NavbarComponent,
     LoginComponent,NavbarStartComponent,ExpensesComponent,AddExpenseComponent,CookieService,MatFormFieldModule,MatInputModule,MatSelectModule,MatDatepickerModule,

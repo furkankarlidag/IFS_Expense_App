@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { expenseCodes } from '../models/expenseCodes';
 import { CookieService } from 'ngx-cookie-service';
 import { get } from 'http';
+import { AuthGuard } from '../services/auth.guard';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 
@@ -32,7 +34,8 @@ export class AddExpenseComponent {
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private authGuard: AuthGuard,
   ) {
     this.AddExpenseForm = this.fb.group({
       customerId: ['', Validators.required],
@@ -47,6 +50,10 @@ export class AddExpenseComponent {
   
   ngOnInit(): void {
     
+    if(!this.cookieService.get('user') ){
+      alert('You are not authorized to access this page. Please login again.');
+      this.authGuard.logout();
+    }
       this.name = '' ;
       
    
