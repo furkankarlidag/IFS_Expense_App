@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet ,NavigationError,NavigationStart} from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { Title } from '@angular/platform-browser';
@@ -13,12 +13,15 @@ import { JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt';
 import { AuthGuard } from './services/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { interval, Subscription } from 'rxjs';
+import { ErrorPageComponent } from './error-page/error-page.component';
+
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,NavbarComponent,LoginComponent,ExpensesComponent,AddExpenseComponent,NavbarStartComponent,CommonModule,ReactiveFormsModule
+  imports: [RouterOutlet,NavbarComponent,LoginComponent,ExpensesComponent,AddExpenseComponent,NavbarStartComponent,CommonModule,ReactiveFormsModule,
+    
     
   ],
   
@@ -27,6 +30,8 @@ import { interval, Subscription } from 'rxjs';
   
 })
 export class AppComponent implements OnInit {
+  isLoading = false;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -38,6 +43,13 @@ export class AppComponent implements OnInit {
   
 
   ngOnInit() {
+    // this.router.events.subscribe(event => {
+    //   if (event instanceof NavigationStart) {
+    //     this.isLoading = true;
+    //   } else if (event instanceof NavigationEnd || event instanceof NavigationError) {
+    //     this.isLoading = false;
+    //   }
+    // });
     // setInterval(() => {
     //   if (this.authService.isTokenExpired()) {
     //     this.authService.logout();

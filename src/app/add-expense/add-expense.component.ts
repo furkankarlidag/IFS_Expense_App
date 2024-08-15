@@ -9,6 +9,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { get } from 'http';
 import { AuthGuard } from '../services/auth.guard';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { MatDialog } from '@angular/material/dialog';
+import { JwtService } from '../services/jwt.service';
+
+
 
 
 
@@ -36,6 +40,8 @@ export class AddExpenseComponent {
     private router: Router,
     private cookieService: CookieService,
     private authGuard: AuthGuard,
+    private dialog: MatDialog,
+    private jwtService: JwtService
   ) {
     this.AddExpenseForm = this.fb.group({
       customerId: ['', Validators.required],
@@ -50,10 +56,7 @@ export class AddExpenseComponent {
   
   ngOnInit(): void {
     
-    if(!this.cookieService.get('user') ){
-      alert('You are not authorized to access this page. Please login again.');
-      this.authGuard.logout();
-    }
+    
       this.name = '' ;
       
    
@@ -97,11 +100,18 @@ export class AddExpenseComponent {
     });
   }
   onSubmit(): void {
+    if(this.jwtService.isTokenExpired(this.cookieService.get('token')))
+      {
+        //alert('Your session has expired. Please log in again.');
+        this.authGuard.logout();
+        
+      }
     if (this.AddExpenseForm.valid) {
       if(this.AddExpenseForm.get('description')?.value.length > 195){
         alert('Description should not exceed 200 characters.');
         return;
       }
+
 
       const apiUrl = 'https://localhost:7067/api/AddExpense';
       const url = `${apiUrl}`;
@@ -130,6 +140,7 @@ export class AddExpenseComponent {
         next: (res: any) => {
           console.log('Response:', res);
           alert('Expense added successfully.');
+          
           //this.router.navigate(['/expenses']);
           this.AddExpenseForm.reset();
         },
@@ -140,6 +151,7 @@ export class AddExpenseComponent {
       });
     }
   }
+  
   getExpenseCodes() {
     const apiUrl = 'https://localhost:7067/api/ExpenseCodes';
     const url = `${apiUrl}`;

@@ -21,10 +21,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthGuard } from './services/auth.guard';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { MatDialog } from '@angular/material/dialog';
+
+
 
 
 export const appConfig: ApplicationConfig = {
   providers: [provideHttpClient(),provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(),NavbarComponent,
     LoginComponent,NavbarStartComponent,ExpensesComponent,AddExpenseComponent,CookieService,MatFormFieldModule,MatInputModule,MatSelectModule,MatDatepickerModule,
-    MatNativeDateModule,MatButtonModule,ReactiveFormsModule,BrowserAnimationsModule,NgModule,BrowserModule,AuthGuard],
+    MatNativeDateModule,MatButtonModule,ReactiveFormsModule,BrowserAnimationsModule,NgModule,BrowserModule,AuthGuard,ErrorPageComponent, provideAnimationsAsync(),MatDialog],
 };

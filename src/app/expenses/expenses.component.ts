@@ -14,6 +14,8 @@ import { of } from 'rxjs';
 import { AuthGuard } from '../services/auth.guard';
 import { HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtService } from '../services/jwt.service';
+
 
 
 
@@ -59,6 +61,7 @@ export class ExpensesComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private authGuard: AuthGuard,
+    private jwtService: JwtService,
     @Inject(DOCUMENT) document: Document
   ) {
     
@@ -90,12 +93,7 @@ export class ExpensesComponent implements OnInit {
       
     }
     
-    checkLogin(): boolean {
-
-      
-
-      return false;
-    }
+    
     
     
 
@@ -235,6 +233,12 @@ export class ExpensesComponent implements OnInit {
     
 
   onSubmit() {
+    if(this.jwtService.isTokenExpired(this.cookieService.get('token')))
+    {
+      //alert('Your session has expired. Please log in again.');
+      this.authGuard.logout();
+      
+    }
     const { year, period } = this.expensesForm.value;
     this.fetchExpenses(year, period);
   }

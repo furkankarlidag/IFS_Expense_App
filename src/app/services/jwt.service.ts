@@ -16,7 +16,7 @@ export class JwtService {
   }
 
   
-  public getTokenExpirationDate(token: string): Date | null {
+   getTokenExpirationDate(token: string): Date | null {
     if (!token) return null;
 
     
@@ -41,8 +41,11 @@ export class JwtService {
  
   public isTokenExpired(token: string): boolean {
     const expirationDate = this.getTokenExpirationDate(token);
+    
     console.log('expirationDate:', expirationDate);
+    console.log("bunu deniyorum kaslin + " , new Date() , " toke tarih " , expirationDate);
     if (!expirationDate) return true;
+    
     return new Date() > expirationDate;
   }
 }

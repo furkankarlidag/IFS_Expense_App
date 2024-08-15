@@ -1,0 +1,51 @@
+/* src/app/error-page/error-page.component.css */
+.error-container {
+    
+    height: 100vh;
+    
+    color: white; /* Yazı rengi beyaz */
+    margin: 0;
+  }
+  :host {
+    display: block;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #7a4eca;
+  }
+  
+  .error-content {
+    text-align: center;
+    background-color: #7a4eca; /* Daha koyu mor kart arka planı */
+    padding: 20px;
+    border-radius: 8px;
+   
+  }
+  
+  .error-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+  }
+  
+  .error-content p {
+    font-size: 1.2rem;
+    margin-bottom: 24px;
+  }
+  
+  .login-button {
+    background-color: #19d260; /* Mavi buton rengi */
+    color: black bold;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-button:hover {
+    background-color: #155a9b; /* Buton hover rengi */
+  }
+  
