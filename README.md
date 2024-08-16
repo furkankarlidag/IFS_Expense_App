@@ -1,4 +1,6 @@
-# IFSExpenseApp
+# IFSExpenseApp - Internship Project
+
+A web application has been developed where personnel can add and track expense records. In the background, services of the IFS ERP system are also being used. ASP.NET Core Web API is utilized for the backend services, while Angular is used for the frontend.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.2.
 
