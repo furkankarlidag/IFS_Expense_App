@@ -4,6 +4,9 @@
 A web application has been developed where personnel can add and track expense records. In the background, services of the IFS ERP system are also being used. ASP.NET Core Web API is utilized for the backend services, while Angular is used for the frontend.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.2.
+## Backend API Repository
+
+To set up and run the backend services, please refer to the [IFS_Expenses_API-Net repository](https://github.com/furkankarlidag/IFS_Expenses_API-Net). Follow the instructions in the repository to get the API running.
 
 ## Development server
 
@@ -29,6 +32,4 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
-## Backend API Repository
 
-To set up and run the backend services, please refer to the [IFS_Expenses_API-Net repository](https://github.com/furkankarlidag/IFS_Expenses_API-Net). Follow the instructions in the repository to get the API running.
