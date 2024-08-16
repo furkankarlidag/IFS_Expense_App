@@ -7,7 +7,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="customerId" class="fw-bold">Customer <span style="color: red;">*</span></label>
-            <select class="form-control" id="customerId" formControlName="customerId" required>
+            <select class="form-select" id="customerId" formControlName="customerId" required>
               <option *ngFor="let customer of customers" [value]="customer.customerId">
                 {{ customer.customerId }} - {{ customer.name }}
               </option>
@@ -17,7 +17,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="expenseCode" class="fw-bold">Expense Code <span style="color: red;">*</span></label>
-            <select class="form-control" id="expenseCode" formControlName="expenseCode" required>
+            <select class="form-select" id="expenseCode" formControlName="expenseCode" required>
               <option *ngFor="let code of expenseCodes" [value]="code.ExpenseCode">
                 {{ code.ExpenseCode }} - {{ code.Description }}
               </option>
@@ -35,7 +35,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="expenseType" class="fw-bold">Expense Type <span style="color: red;">*</span></label>
-            <select class="form-control" id="expenseType" formControlName="expenseType" required>
+            <select class="form-select" id="expenseType" formControlName="expenseType" required>
               <option value="VOUCHER">Voucher</option>
               <option value="INVOICE">Invoice</option>
             </select>

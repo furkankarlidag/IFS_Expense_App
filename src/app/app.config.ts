@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, RouterModule } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -31,5 +31,6 @@ import { MatDialog } from '@angular/material/dialog';
 export const appConfig: ApplicationConfig = {
   providers: [provideHttpClient(),provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(),NavbarComponent,
     LoginComponent,NavbarStartComponent,ExpensesComponent,AddExpenseComponent,CookieService,MatFormFieldModule,MatInputModule,MatSelectModule,MatDatepickerModule,
-    MatNativeDateModule,MatButtonModule,ReactiveFormsModule,BrowserAnimationsModule,NgModule,BrowserModule,AuthGuard,ErrorPageComponent, provideAnimationsAsync(),MatDialog],
+    MatNativeDateModule,MatButtonModule,ReactiveFormsModule,
+    RouterModule,BrowserAnimationsModule,NgModule,BrowserModule,AuthGuard,ErrorPageComponent, provideAnimationsAsync(),MatDialog],
 };

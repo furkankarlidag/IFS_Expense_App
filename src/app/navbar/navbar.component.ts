@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+
 import { CookieService } from 'ngx-cookie-service';
 import { AuthGuard } from '../services/auth.guard';
 
@@ -10,7 +11,7 @@ import { AuthGuard } from '../services/auth.guard';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
